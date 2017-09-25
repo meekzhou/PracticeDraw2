@@ -2,6 +2,7 @@ package com.hencoder.hencoderpracticedraw2.practice;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.support.annotation.Nullable;
@@ -9,6 +10,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 public class Practice15FillPathView extends View {
+    private static final String TAG = "Practice15FillPathView";
     Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     Paint pathPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     Path path = new Path();
@@ -43,11 +45,15 @@ public class Practice15FillPathView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
+        pathPaint.setColor(Color.RED);
+        setLayerType(LAYER_TYPE_SOFTWARE, null);
+
         // 使用 Paint.getFillPath() 获取实际绘制的 Path
 
         paint.setStyle(Paint.Style.FILL_AND_STROKE);
         paint.setStrokeWidth(0);
         // 第一处：获取 Path
+        paint.getFillPath(path, path1);
         canvas.drawPath(path, paint);
 
         canvas.save();
@@ -59,6 +65,7 @@ public class Practice15FillPathView extends View {
         canvas.translate(0, 200);
         paint.setStyle(Paint.Style.STROKE);
         // 第二处：设置 Style 为 STROKE 后再获取 Path
+        paint.getFillPath(path, path2);
         canvas.drawPath(path, paint);
         canvas.restore();
 
@@ -71,6 +78,7 @@ public class Practice15FillPathView extends View {
         canvas.translate(0, 400);
         paint.setStrokeWidth(40);
         // 第三处：Style 为 STROKE 并且线条宽度为 40 时的 Path
+        paint.getFillPath(path, path3);
         canvas.drawPath(path, paint);
         canvas.restore();
 
